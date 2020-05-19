@@ -54,8 +54,6 @@ public class Persoon {
     }
 
     public void setGeslacht(char geslacht) {
-        if (geslacht = "M" || geslacht = "V") {
-            this.geslacht = geslacht;
-        }
+        this.geslacht = geslacht;
     }
 }
