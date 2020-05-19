@@ -1,11 +1,11 @@
 public class Artikel {
 
-    private String naam;
-    private double prijs;
+    private String naam;        //Opgave 1b: Naam declareren
+    private double prijs;       //Opgave 1b: Prijs declareren
 
     public Artikel(String naam, double prijs) {
-        this.naam = naam;
-        this.prijs = prijs;
+        this.naam = naam;       //Opgave 1b: Naam initialiseren
+        this.prijs = prijs;     //Opgave 1b: Prijs initialiseren
     }
 
     public Artikel() {
@@ -25,5 +25,11 @@ public class Artikel {
 
     public void setPrijs(double prijs) {
         this.prijs = prijs;
+    }
+
+    @Override
+    public String toString() {
+        String returnString = getNaam() + " " + getPrijs();
+        return returnString;
     }
 }

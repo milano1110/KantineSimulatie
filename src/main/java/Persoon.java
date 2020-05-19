@@ -3,10 +3,10 @@ public class Persoon {
     private int BSN;
     private String voorNaam;
     private String achterNaam;
-    private int geboorteDatum;
+    private Datum geboorteDatum;
     private char geslacht;
 
-    public Persoon(int BSN, String voorNaam, String achterNaam, int geboorteDatum, char geslacht) {
+    public Persoon(int BSN, String voorNaam, String achterNaam, Datum geboorteDatum, char geslacht) {
         this.BSN = BSN;
         this.voorNaam = voorNaam;
         this.achterNaam = achterNaam;
@@ -15,6 +15,8 @@ public class Persoon {
     }
 
     public Persoon() {
+        //this.geboorteDatum = 0;
+        this.geslacht = 'O';
     }
 
     public int getBSN() {
@@ -41,19 +43,42 @@ public class Persoon {
         this.achterNaam = achterNaam;
     }
 
-    public int getGeboorteDatum() {
-        return geboorteDatum;
+    public String getGeboorteDatum() {
+        Datum datum = new Datum();
+        return datum.getDatumAsString();
     }
 
-    public void setGeboorteDatum(int geboorteDatum) {
+    public void setGeboorteDatum(Datum geboorteDatum) {
         this.geboorteDatum = geboorteDatum;
     }
 
-    public char getGeslacht() {
-        return geslacht;
+    public String getGeslacht() {
+        String returnString = "";
+        if (geslacht == 'M') {
+            returnString = "Man";
+        }
+        if (geslacht == 'V') {
+            returnString = "Vrouw";
+        }
+        if (geslacht == 'O') {
+            returnString = "Onbekend";
+        }
+
+        return returnString;
     }
 
     public void setGeslacht(char geslacht) {
-        this.geslacht = geslacht;
+        if (geslacht == 'M' || geslacht == 'V') {
+            this.geslacht = geslacht;
+        }
+        else {
+            geslacht = 'O';
+        }
+    }
+
+    @Override
+    public String toString() {
+        String returnString = getBSN() + " " + getVoorNaam() + " " + getAchterNaam() + " " + getGeboorteDatum() + " " + getGeslacht();
+        return returnString;
     }
 }

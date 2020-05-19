@@ -27,6 +27,7 @@ public class KassaRij {
      */
     public Dienblad eerstePersoonInRij() {
         // method body omitted
+        return null;
     }
 
     /**
@@ -36,5 +37,6 @@ public class KassaRij {
      */
     public boolean erIsEenRij() {
         // method body omitted
+        return false;
     }
 }

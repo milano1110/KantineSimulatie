@@ -28,6 +28,7 @@ public class Kassa {
      */
     public int aantalArtikelen() {
         // method body omitted
+        return 0;
     }
 
     /**
@@ -38,6 +39,7 @@ public class Kassa {
      */
     public double hoeveelheidGeldInKassa() {
         // method body omitted
+        return 0;
     }
 
     /**

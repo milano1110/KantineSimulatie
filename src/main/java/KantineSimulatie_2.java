@@ -1,4 +1,4 @@
-import java.util.*;
+/*import java.util.*;
 
 public class KantineSimulatie {
 
@@ -36,7 +36,7 @@ public class KantineSimulatie {
     /**
      * Constructor
      *
-     */
+     *
     public KantineSimulatie() {
         kantine = new Kantine();
         random = new Random();
@@ -55,7 +55,7 @@ public class KantineSimulatie {
      * @param min
      * @param max
      * @return De array met random getallen
-     */
+     *
     private int[] getRandomArray(int lengte, int min, int max) {
         int[] temp = new int[lengte];
         for (int i = 0; i < lengte; i++) {
@@ -71,7 +71,7 @@ public class KantineSimulatie {
      * @param min
      * @param max
      * @return Een random getal
-     */
+     *
     private int getRandomValue(int min, int max) {
         return random.nextInt(max - min + 1) + min;
     }
@@ -82,7 +82,7 @@ public class KantineSimulatie {
      *
      * @param indexen
      * @return De array met artikelnamen
-     */
+     *
     private String[] geefArtikelNamen(int[] indexen) {
         String[] artikelen = new String[indexen.length];
 
@@ -100,6 +100,7 @@ public class KantineSimulatie {
      *
      * @param dagen
      */
+    /*
     public void simuleer(int dagen) {
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
@@ -138,4 +139,6 @@ public class KantineSimulatie {
 
         }
     }
-}
+
+
+}*/

@@ -6,21 +6,25 @@ public class Datum {
 
 	/**
 	 * Constructor
-	 * @param dag
-	 * @param maand
-	 * @param jaar
+	 * @param dag De dag.
+	 * @param maand De maand.
+	 * @param jaar Het jaar.
 	 */
+
 	public Datum(int dag, int maand, int jaar) {
 		this.dag = dag;
 		this.maand = maand;
 		this.jaar = jaar;
 	}
 
+	/*
 	public Datum() {
 		this.dag = 0;
 		this.maand = 0;
 		this.jaar = 0;
 	}
+
+	 */
 
 	public int getDag() {
 		return dag;
@@ -47,19 +51,28 @@ public class Datum {
 	}
 
 	public boolean bestaatDatum(int dag, int maand, int jaar) {
-		if (dag < 1) {
+
+		int[][] datumArray = {{ 1, 31}, {2, 28, 29}, {3, 31}, {4, 30}, {5, 31}, {6, 30}, {7, 31}, {8, 31}, {9, 30}, {10, 31}, {11, 30}, {12, 31}};
+
+		if (jaar >= 1900 && jaar <= 2100) {
+			if (maand >= 1 && maand <= 12) {
+				if (dag >= 1 && dag <= datumArray[maand - 1][1]) {
+					return true;
+				} else if (jaar % 2 == 0 && maand == 2){
+					if (dag >= 1 && dag <= datumArray[maand - 1][2]) {
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} else {
 			return false;
 		}
-
-		if (maand < 1 || maand > 12) {
-			return false;
-		}
-
-		if (jaar < 1900 || jaar > 2100) {
-			return false;
-		}
-		return true;
-
 	}
 
 	/**
@@ -68,7 +81,6 @@ public class Datum {
 	 * @return Geboortedatum
 	 */
 	public String getDatumAsString() {
-		// TODO
-		return "";
+		return getDag() + "-" + getMaand() + "-" + getJaar();
 	}
 }

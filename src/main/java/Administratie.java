@@ -8,6 +8,7 @@ public class Administratie {
      */
     public double berekenGemiddeldAantal(int[] aantal) {
         // method body omitted
+        return 0;
     }
 
     /**
@@ -18,6 +19,7 @@ public class Administratie {
      */
     public double berekenGemiddeldeOmzet(double[] omzet) {
         // method body omitted
+        return 0;
     }
 
     /**
@@ -26,7 +28,7 @@ public class Administratie {
      * @param omzet
      * @return array (7 elementen) met dagomzetten
      */
-
+/*
     public static double[] berekenDagOmzet(double[] omzet) {
         double[] temp = new double[7];
         for(int i = 0; i < 7; i++) {
@@ -41,4 +43,6 @@ public class Administratie {
         }
         return temp;
     }
+
+ */
 }

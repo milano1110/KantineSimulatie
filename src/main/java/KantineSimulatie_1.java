@@ -1,3 +1,4 @@
+/*
 public class KantineSimulatie {
 
     private Kantine kantine;
@@ -6,10 +7,12 @@ public class KantineSimulatie {
 
     /**
      * Constructor
-     */
+     *
     public KantineSimulatie() {
         kantine = new Kantine();
     }
+
+
 
     /**
      * Deze methode simuleert een aantal dagen in het
@@ -17,6 +20,7 @@ public class KantineSimulatie {
      *
      * @param dagen
      */
+    /*
     public void simuleer(int dagen) {
 
         // herhaal voor elke dag
@@ -38,9 +42,12 @@ public class KantineSimulatie {
         }
     }
 
+     */
+/*
     /**
      * Start een simulatie
      */
+    /*
     public static void main(String[] args) {
         int dagen;
 
@@ -52,4 +59,6 @@ public class KantineSimulatie {
 
         simulate(dagen);
     }
-}
+
+
+}*/
