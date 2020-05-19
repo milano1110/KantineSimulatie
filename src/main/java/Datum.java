@@ -10,21 +10,23 @@ public class Datum {
 	 * @param maand De maand.
 	 * @param jaar Het jaar.
 	 */
-
 	public Datum(int dag, int maand, int jaar) {
-		this.dag = dag;
-		this.maand = maand;
-		this.jaar = jaar;
+		if (!bestaatDatum(dag, maand, jaar)) {
+			this.dag = 0;
+			this.maand = 0;
+			this.jaar = 0;
+		} else {
+			this.dag = dag;
+			this.maand = maand;
+			this.jaar = jaar;
+		}
 	}
 
-	/*
 	public Datum() {
 		this.dag = 0;
 		this.maand = 0;
 		this.jaar = 0;
 	}
-
-	 */
 
 	public int getDag() {
 		return dag;
@@ -81,6 +83,9 @@ public class Datum {
 	 * @return Geboortedatum
 	 */
 	public String getDatumAsString() {
+		if (getDag() == 0) {
+			return "Onbekend";
+		}
 		return getDag() + "-" + getMaand() + "-" + getJaar();
 	}
 }

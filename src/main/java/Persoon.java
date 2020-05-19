@@ -15,7 +15,7 @@ public class Persoon {
     }
 
     public Persoon() {
-        //this.geboorteDatum = 0;
+        this.geboorteDatum = null;
         this.geslacht = 'O';
     }
 
@@ -44,8 +44,7 @@ public class Persoon {
     }
 
     public String getGeboorteDatum() {
-        Datum datum = new Datum();
-        return datum.getDatumAsString();
+        return geboorteDatum.getDatumAsString();
     }
 
     public void setGeboorteDatum(Datum geboorteDatum) {
