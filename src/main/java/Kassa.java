@@ -2,11 +2,17 @@ import java.util.Iterator;
 
 public class Kassa {
 
+    private KassaRij kassarij;
+    private int totaalAantalArtikelen;
+    private double totaalAantalGeld;
+
     /**
      * Constructor
      */
     public Kassa(KassaRij kassarij) {
-        // method body omitted
+        this.kassarij = kassarij;
+        this.totaalAantalArtikelen = 0;
+        this.totaalAantalGeld = 0;
     }
 
     /**
@@ -17,36 +23,37 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        // method body omitted
+        //String gegevens = "Aantal artikelen: " + klant.getAantalArtikelen() + "\nTotaalPrijs: " + klant.getTotaalPrijs();
+        this.totaalAantalArtikelen += klant.getAantalArtikelen();
+        this.totaalAantalGeld += klant.getTotaalPrijs();
     }
 
     /**
-     * Geeft het aantal artikelen dat de kassa heeft gepasseerd, vanaf het moment dat de methode
-     * resetWaarden is aangeroepen.
+     * Geeft het aantal artikelen aan dat de kassa heeft gepasseerd, vanaf het moment dat de methode
+     * resetWaarden (resetKassa?) is aangeroepen.
      *
      * @return aantal artikelen
      */
     public int aantalArtikelen() {
-        // method body omitted
-        return 0;
+        return totaalAantalArtikelen;
     }
 
     /**
-     * Geeft het totaalbedrag van alle artikelen die de kass zijn gepasseerd, vanaf het moment dat
+     * Geeft het totaalbedrag van alle artikelen die de kassa zijn gepasseerd, vanaf het moment dat
      * de methode resetKassa is aangeroepen.
      *
      * @return hoeveelheid geld in de kassa
      */
     public double hoeveelheidGeldInKassa() {
-        // method body omitted
-        return 0;
+        return totaalAantalGeld;
     }
 
     /**
-     * reset de waarden van het aantal gepasseerde artikelen en de totale hoeveelheid geld in de
+     * Reset de waarden van het aantal gepasseerde artikelen en de totale hoeveelheid geld in de
      * kassa.
      */
     public void resetKassa() {
-        // method body omitted
+        this.totaalAantalGeld = 0;
+        this.totaalAantalArtikelen = 0;
     }
 }

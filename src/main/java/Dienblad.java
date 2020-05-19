@@ -10,11 +10,12 @@ public class Dienblad {
      * Constructor
      */
     public Dienblad() {
-        this.artikelen = new ArrayList<>();
+
     }
 
     public Dienblad(Persoon klant) {
         this.klant = new Persoon();
+        this.artikelen = new ArrayList<>();
     }
 
     public Persoon getKlant() {
@@ -32,7 +33,6 @@ public class Dienblad {
      */
     public void voegToe(Artikel artikel) {
         artikelen.add(artikel);
-
     }
 
     /**
@@ -50,7 +50,7 @@ public class Dienblad {
      * @return De totaalprijs
      */
     public double getTotaalPrijs() {
-        int totaalPrijs = 0;
+        double totaalPrijs = 0;
         for (Artikel artikel : artikelen) {
             totaalPrijs += artikel.getPrijs();
         }

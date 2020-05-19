@@ -77,7 +77,7 @@ public class Persoon {
 
     @Override
     public String toString() {
-        String returnString = getBSN() + " " + getVoorNaam() + " " + getAchterNaam() + " " + getGeboorteDatum() + " " + getGeslacht();
+        String returnString = "BSN: " + getBSN() + "\nNaam: " + getVoorNaam() + " " + getAchterNaam() + "\nGeboortedatum: " + getGeboorteDatum() + "\nGeslacht: " + getGeslacht();
         return returnString;
     }
 }
