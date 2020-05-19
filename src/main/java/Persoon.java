@@ -59,7 +59,7 @@ public class Persoon {
         if (geslacht == 'V') {
             returnString = "Vrouw";
         }
-        if (geslacht == 'O') {
+        if (geslacht != 'M' && geslacht != 'V') {
             returnString = "Onbekend";
         }
 
