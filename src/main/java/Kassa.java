@@ -23,9 +23,10 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        //String gegevens = "Aantal artikelen: " + klant.getAantalArtikelen() + "\nTotaalPrijs: " + klant.getTotaalPrijs();
-        this.totaalAantalArtikelen += klant.getAantalArtikelen();
-        this.totaalAantalGeld += klant.getTotaalPrijs();
+        if (klant.getAantalArtikelen() > 0) {
+            this.totaalAantalArtikelen += klant.getAantalArtikelen();
+            this.totaalAantalGeld += klant.getTotaalPrijs();
+        }
     }
 
     /**

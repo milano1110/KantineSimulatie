@@ -11,7 +11,7 @@ public class Persoon {
         this.voorNaam = voorNaam;
         this.achterNaam = achterNaam;
         this.geboorteDatum = geboorteDatum;
-        this.geslacht = geslacht;
+        setGeslacht(geslacht);
     }
 
     public Persoon() {
