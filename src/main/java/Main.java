@@ -8,14 +8,16 @@ public class Main {
          */
 
         Datum datum = new Datum(11, 10, 1998);
-        Datum foutDatum = new Datum (29, 2, 2015);
+        Datum foutDatum = new Datum (29, 2, 1900);
+        Datum goedDatum = new Datum (29, 2, 2000);
 
         Persoon persoon1 = new Persoon(123456789, "Milan", "Schuringa", datum ,'M');
-        Persoon persoon2 = new Persoon(123456789, "Milan", "Schuringa", foutDatum ,'Q');
-        Persoon persoon3 = new Persoon(123456789, "Lieuwe", "Baron", datum ,'M');
+        Persoon persoon2 = new Persoon(123456789, "Fout", "Datum", foutDatum ,'Q');
+        Persoon persoon3 = new Persoon(123456789, "Goed", "Datum", goedDatum ,'M');
 
         System.out.println(persoon1.toString());
         System.out.println(persoon2.toString());
+        System.out.println(persoon3.toString());
 
         Dienblad klant1 = new Dienblad(persoon1);
         Dienblad klant2 = new Dienblad(persoon2);
@@ -35,10 +37,11 @@ public class Main {
         kassaRij.sluitAchteraan(klant2);
         kassaRij.sluitAchteraan(klant3);
 
-        kassa.rekenAf(klant1);
-        kassa.rekenAf(klant2);
-        kassa.rekenAf(klant3);
+        Kantine kantine = new Kantine();
+        kantine.loopPakSluitAan();
 
+        kantine.verwerkRijVoorKassa();
+/*
         System.out.println("Aantal artikelen: " + kassa.aantalArtikelen());
         System.out.println("Hoeveelheid geld: " + kassa.hoeveelheidGeldInKassa());
 
@@ -46,6 +49,8 @@ public class Main {
 
         System.out.println("Aantal artikelen: " + kassa.aantalArtikelen());
         System.out.println("Hoeveelheid geld: " + kassa.hoeveelheidGeldInKassa());
+
+ */
 
     }
 }

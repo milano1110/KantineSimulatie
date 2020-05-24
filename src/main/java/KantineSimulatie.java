@@ -17,7 +17,6 @@ public class KantineSimulatie {
      *
      * @param dagen
      */
-
     public void simuleer(int dagen) {
 
         // herhaal voor elke dag
@@ -28,7 +27,7 @@ public class KantineSimulatie {
 
             // for lus voor personen
             for (int j = 0; j < 10 + i; j++) {
-                // kantine.(...);
+                kantine.loopPakSluitAan();
             }
 
             // verwerk rij voor de kassa
@@ -58,7 +57,9 @@ public class KantineSimulatie {
             dagen = Integer.parseInt(args[0]);
         }
 
-        simulate(dagen);
+        KantineSimulatie kantineSimulatie = new KantineSimulatie();
+        kantineSimulatie.simuleer(dagen);
+        //simuleer(dagen);
     }
 
 

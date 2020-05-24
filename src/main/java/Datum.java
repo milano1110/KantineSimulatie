@@ -55,12 +55,15 @@ public class Datum {
 	public boolean bestaatDatum(int dag, int maand, int jaar) {
 
 		int[][] datumArray = {{ 1, 31}, {2, 28, 29}, {3, 31}, {4, 30}, {5, 31}, {6, 30}, {7, 31}, {8, 31}, {9, 30}, {10, 31}, {11, 30}, {12, 31}};
-
 		if (jaar >= 1900 && jaar <= 2100) {
 			if (maand >= 1 && maand <= 12) {
 				if (dag >= 1 && dag <= datumArray[maand - 1][1]) {
 					return true;
-				} else if (jaar % 2 == 0 && maand == 2){
+				}
+				if (jaar % 100 == 0 && jaar % 400 != 0) {
+					return false;
+				}
+				else if (jaar % 4 == 0 && maand == 2){
 					if (dag >= 1 && dag <= datumArray[maand - 1][2]) {
 						return true;
 					} else {

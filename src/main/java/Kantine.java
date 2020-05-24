@@ -17,7 +17,7 @@ public class Kantine {
      * voor de kassa.
      */
     public void loopPakSluitAan() {
-        Persoon persoon = new Persoon();
+        Persoon persoon = new Persoon(123456789, "Milan", "Schuringa", new Datum(11, 10, 1998) ,'M');
         Dienblad dienblad = new Dienblad(persoon);
         Artikel brood = new Artikel("brood", 2.00);
         Artikel kaas = new Artikel("kaas", 3.00);
