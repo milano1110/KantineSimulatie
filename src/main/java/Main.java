@@ -27,6 +27,7 @@ public class Main {
         Artikel worst = new Artikel("worst", 3.75);
 
         klant1.voegToe(kaas);
+        klant1.voegToe(worst);
         klant2.voegToe(worst);
         klant3.voegToe(kaas);
 
@@ -37,6 +38,8 @@ public class Main {
         kassaRij.sluitAchteraan(klant2);
         kassaRij.sluitAchteraan(klant3);
 
+        kassa.getIterator();
+/*
         Kantine kantine = new Kantine();
         kantine.loopPakSluitAan();
 

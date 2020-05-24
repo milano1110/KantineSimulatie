@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Iterator;
 
 public class Kassa {
@@ -32,6 +33,7 @@ public class Kassa {
     /**
      * Geeft het aantal artikelen aan dat de kassa heeft gepasseerd, vanaf het moment dat de methode
      * resetWaarden (resetKassa?) is aangeroepen.
+     * Opgave 4a: Bij deze methode.
      *
      * @return aantal artikelen
      */
@@ -42,6 +44,7 @@ public class Kassa {
     /**
      * Geeft het totaalbedrag van alle artikelen die de kassa zijn gepasseerd, vanaf het moment dat
      * de methode resetKassa is aangeroepen.
+     * Opgave 4a: Bij deze methode.
      *
      * @return hoeveelheid geld in de kassa
      */
@@ -52,9 +55,17 @@ public class Kassa {
     /**
      * Reset de waarden van het aantal gepasseerde artikelen en de totale hoeveelheid geld in de
      * kassa.
+     * Opgave 4a: Bij deze methode.
      */
     public void resetKassa() {
         this.totaalAantalGeld = 0;
         this.totaalAantalArtikelen = 0;
+    }
+
+    public void getIterator() {
+        Iterator iter = kassarij.eerstePersoonInRij().iterator();
+        while (iter.hasNext()) {
+            System.out.println((String)iter.next());
+        }
     }
 }

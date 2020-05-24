@@ -3,19 +3,20 @@ import java.util.Iterator;
 import java.util.Stack;
 
 public class Dienblad {
-    private ArrayList<Artikel> artikelen;
+    private Stack<Artikel> artikelen;
     private Persoon klant;
 
     /**
      * Constructor
      */
     public Dienblad() {
+        //this(new Persoon());
 
     }
 
     public Dienblad(Persoon klant) {
-        this.artikelen = new ArrayList<>();
         this.klant = new Persoon();
+        this.artikelen = new Stack<>();
     }
 
     public Persoon getKlant() {
@@ -34,6 +35,11 @@ public class Dienblad {
     public void voegToe(Artikel artikel) {
         artikelen.add(artikel);
     }
+
+    public Iterator<Artikel> iterator() {
+        return artikelen.iterator();
+    }
+
 
     /**
      * Methode om aantal artikelen op dienblad te tellen
@@ -56,5 +62,6 @@ public class Dienblad {
         }
         return totaalPrijs;
     }
+
 }
 
