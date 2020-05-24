@@ -14,8 +14,8 @@ public class Dienblad {
     }
 
     public Dienblad(Persoon klant) {
-        this.klant = new Persoon();
         this.artikelen = new ArrayList<>();
+        this.klant = new Persoon();
     }
 
     public Persoon getKlant() {

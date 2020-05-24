@@ -9,7 +9,7 @@ public class Main {
 
         Datum datum = new Datum(11, 10, 1998);
         Datum foutDatum = new Datum (29, 2, 1900);
-        Datum goedDatum = new Datum (29, 2, 2000);
+        Datum goedDatum = new Datum (11, 10, 1900);
 
         Persoon persoon1 = new Persoon(123456789, "Milan", "Schuringa", datum ,'M');
         Persoon persoon2 = new Persoon(123456789, "Fout", "Datum", foutDatum ,'Q');
@@ -40,8 +40,17 @@ public class Main {
         Kantine kantine = new Kantine();
         kantine.loopPakSluitAan();
 
-        kantine.verwerkRijVoorKassa();
+        //System.out.println("Aantal artikelen: " + kantine.aantalArtikelen());
+
+        //kantine.verwerkRijVoorKassa();
+
+        //System.out.println("Aantal artikelen: " + kantine.aantalArtikelen());
+
 /*
+        kassa.rekenAf(klant1);
+        kassa.rekenAf(klant2);
+        kassa.rekenAf(klant3);
+
         System.out.println("Aantal artikelen: " + kassa.aantalArtikelen());
         System.out.println("Hoeveelheid geld: " + kassa.hoeveelheidGeldInKassa());
 
