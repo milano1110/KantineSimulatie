@@ -21,7 +21,7 @@ public class Main {
         Dienblad klant2 = new Dienblad(persoon2);
         Dienblad klant3 = new Dienblad(persoon3);
 
-        Artikel kaas = new Artikel("kaas", 2.50);
+        Artikel kaas = new Artikel("kaas", 3.00);
         Artikel worst = new Artikel("worst", 3.75);
 
         klant1.voegToe(kaas);
