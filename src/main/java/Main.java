@@ -38,7 +38,7 @@ public class Main {
         kassaRij.sluitAchteraan(klant2);
         kassaRij.sluitAchteraan(klant3);
 
-        kassa.getIterator();
+        klant1.getIterator();
 /*
         Kantine kantine = new Kantine();
         kantine.loopPakSluitAan();

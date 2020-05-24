@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Iterator;
 
 public class Kassa {
@@ -24,9 +23,13 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        if (klant.getAantalArtikelen() > 0) {
-            this.totaalAantalArtikelen += klant.getAantalArtikelen();
-            this.totaalAantalGeld += klant.getTotaalPrijs();
+        Iterator<Artikel> iter = klant.getIterator();
+        if (iter != null) {
+            while (iter.hasNext()) {
+                Artikel artikel = iter.next();
+                this.totaalAantalGeld += artikel.getPrijs();
+                this.totaalAantalArtikelen += 1;
+            }
         }
     }
 
@@ -61,11 +64,14 @@ public class Kassa {
         this.totaalAantalGeld = 0;
         this.totaalAantalArtikelen = 0;
     }
-
-    public void getIterator() {
+/*
+    public Iterator getIterator() {
         Iterator iter = kassarij.eerstePersoonInRij().iterator();
         while (iter.hasNext()) {
-            System.out.println((String)iter.next());
+            Artikel element = (Artikel) iter.next();
+            return element;
         }
     }
+
+ */
 }
