@@ -2,6 +2,7 @@ public class Kantine {
 
     private Kassa kassa;
     private KassaRij kassarij;
+    private KantineAanbod kantineAanbod;
 
     /**
      * Constructor
@@ -12,11 +13,19 @@ public class Kantine {
     }
 
     /**
-     * In deze methode wordt een Persoon en Dienblad gemaakt en aan elkaar gekoppeld. Maak twee
-     * Artikelen aan en plaats deze op het dienblad. Tenslotte sluit de Persoon zich aan bij de rij
-     * voor de kassa.
-     */
-    public void loopPakSluitAan() {
+      * In deze methode wordt een dienblad met artikelen
+      * in de kassarij geplaatst.
+      *
+      * @param dienblad
+      */
+    public void loopPakSluitAan(Dienblad dienblad, String[] artikelnamen) {
+        for(int i = 0; i < artikelnamen.length; i++) {
+            Artikel currentArtikel = kantineAanbod.getArtikel(artikelnamen[i]);
+            dienblad.voegToe(currentArtikel);
+        }
+        kassarij.sluitAchteraan(dienblad);
+/*
+Opdracht 1b:
         Persoon persoon = new Persoon();
         Dienblad dienblad = new Dienblad(persoon);
         Artikel artikel1 = new Artikel("brood", 2.00);
@@ -26,6 +35,7 @@ public class Kantine {
         dienblad.voegToe(artikel2);
 
         kassarij.sluitAchteraan(dienblad);
+ */
     }
 
     /**
@@ -43,33 +53,11 @@ public class Kantine {
         return kassa;
     }
 
-    /*
-    /**
-     * Deze methode telt het geld uit de kassa
-     *
-     * @return hoeveelheid geld in kassa
-     *
-    public double hoeveelheidGeldInKassa() {
-        return kassa.hoeveelheidGeldInKassa();
+    public KantineAanbod getKantineAanbod() {
+        return kantineAanbod;
     }
 
-    /**
-     * Deze methode geeft het aantal gepasseerde artikelen.
-     *
-     * @return het aantal gepasseerde artikelen
-     *
-    public int aantalArtikelen() {
-        return kassa.aantalArtikelen();
+    public void setKantineAanbod(KantineAanbod kantineAanbod) {
+        this.kantineAanbod = kantineAanbod;
     }
-
-    /**
-     * Deze methode reset de bijgehouden telling van het aantal artikelen en "leegt" de inhoud van
-     * de kassa.
-     *
-     *
-    public void resetKassa() {
-        kassa.resetKassa();
-    }
-
- */
 }

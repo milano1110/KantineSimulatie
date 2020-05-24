@@ -6,7 +6,7 @@ public class Main {
         maandag code mailen
         vrijdag 29 mei 14:30
          */
-
+/*
         Datum datum = new Datum(11, 10, 1998);
         Datum foutDatum = new Datum (29, 2, 1900);
         Datum goedDatum = new Datum (11, 10, 1900);
@@ -38,8 +38,7 @@ public class Main {
         kassaRij.sluitAchteraan(klant2);
         kassaRij.sluitAchteraan(klant3);
 
-        klant1.getIterator();
-/*
+
         Kantine kantine = new Kantine();
         kantine.loopPakSluitAan();
 
@@ -63,6 +62,8 @@ public class Main {
         System.out.println("Hoeveelheid geld: " + kassa.hoeveelheidGeldInKassa());
 
  */
+        KantineSimulatie kantineSimulatie = new KantineSimulatie();
+        kantineSimulatie.simuleer(7);
 
     }
 }
