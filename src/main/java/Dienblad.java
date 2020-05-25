@@ -10,7 +10,6 @@ public class Dienblad {
      * Constructor
      */
     public Dienblad() {
-        //this(new Persoon());
 
     }
 
@@ -40,31 +39,5 @@ public class Dienblad {
         Iterator<Artikel> iter = artikelen.iterator();
         return iter;
     }
-
-/*
-    /**
-     * Methode om aantal artikelen op dienblad te tellen
-     *
-     * @return Het aantal artikelen
-     *
-    public int getAantalArtikelen() {
-        return artikelen.size();
-    }
-
-    /**
-     * Methode om de totaalprijs van de artikelen op dienblad uit te rekenen
-     *
-     * @return De totaalprijs
-     *
-    public double getTotaalPrijs() {
-        double totaalPrijs = 0;
-        for (Artikel artikel : artikelen) {
-            totaalPrijs += artikel.getPrijs();
-        }
-        return totaalPrijs;
-    }
-
- */
-
 }
 

@@ -136,7 +136,7 @@ public class KantineSimulatie {
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
-                kantine.loopPakSluitAan(dienblad ,artikelen);
+                kantine.loopPakSluitAan(dienblad, artikelen);
 
             }
 

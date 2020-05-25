@@ -64,14 +64,4 @@ public class Kassa {
         this.totaalAantalGeld = 0;
         this.totaalAantalArtikelen = 0;
     }
-/*
-    public Iterator getIterator() {
-        Iterator iter = kassarij.eerstePersoonInRij().iterator();
-        while (iter.hasNext()) {
-            Artikel element = (Artikel) iter.next();
-            return element;
-        }
-    }
-
- */
 }
