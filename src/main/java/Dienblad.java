@@ -35,6 +35,10 @@ public class Dienblad {
         artikelen.add(artikel);
     }
 
+    /**
+     * Opdracht 4d
+     * @return Iterator over de artikelen
+     */
     public Iterator<Artikel> getIterator() {
         Iterator<Artikel> iter = artikelen.iterator();
         return iter;

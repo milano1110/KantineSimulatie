@@ -20,6 +20,8 @@ public class Kassa {
      * die voor de kassa worden bijgehouden. De implementatie wordt later vervangen door een echte
      * betaling door de persoon.
      *
+     * Opdracht 4d
+     *
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {

@@ -63,7 +63,7 @@ public class Main {
 
  */
         KantineSimulatie kantineSimulatie = new KantineSimulatie();
-        kantineSimulatie.simuleer(7);
+        kantineSimulatie.simuleer(50);
 
     }
 }

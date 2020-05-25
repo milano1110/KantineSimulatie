@@ -1,6 +1,9 @@
 import java.util.*;
+import java.text.DecimalFormat;
 
 public class KantineSimulatie {
+
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     // kantine
     private Kantine kantine;
@@ -76,6 +79,10 @@ public class KantineSimulatie {
     /**
      * Methode om een random getal tussen min(incl) en max(incl) te genereren.
      *
+     * Opdracht 6b:
+     * De minimale waarde van Random is inclusief, terwijl de maximale waarde exclusief is.
+     * Dus bij min = 0 en max = 10, worden er nummers gegenereerd van 0 t/m 9, vandaar de +1.
+     *
      * @param min
      * @param max
      * @return Een random getal
@@ -114,7 +121,7 @@ public class KantineSimulatie {
         for(int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = 5;
+            int aantalpersonen = 100;
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
@@ -123,7 +130,7 @@ public class KantineSimulatie {
                 Persoon persoon = new Persoon();
                 Dienblad dienblad = new Dienblad(persoon);
                 // en bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = 2;
+                int aantalartikelen = 3;
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
@@ -144,7 +151,7 @@ public class KantineSimulatie {
             kantine.verwerkRijVoorKassa();
 
             // druk de dagtotalen af
-            System.out.println("Dagtotaal: " + kantine.getKassa().hoeveelheidGeldInKassa());
+            System.out.println("Dagtotaal: " + df2.format(kantine.getKassa().hoeveelheidGeldInKassa()));
 
             // hoeveel personen binnen zijn gekomen
             System.out.println("Aantal personen: " + aantalpersonen);

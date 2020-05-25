@@ -6,6 +6,15 @@ public class KantineAanbod {
     private HashMap<String, Integer> startVoorraad;
     private HashMap<String, Double> prijzen;
 
+/*
+Opdracht 5a:
+Dan kun je de variablen niet van buitenaf veranderen.
+
+Opdracht 5b:
+Je gebruikt HashMap als je een implementatie van Map moet hebben en
+HashSet als je een implementatie van Set moet hebben waar geen dubbele data in voor kan komen.
+ */
+
     /**
      * Constructor. Het eerste argument is een lijst met artikelnamen, het tweede argument is
      * eenlijst met prijzen en het derde argument is een lijst met hoeveelheden. Let op: de

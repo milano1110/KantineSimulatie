@@ -49,6 +49,10 @@ Opdracht 1b:
         }
     }
 
+    /**
+     * Opdracht 4b
+     * @return De kassa.
+     */
     public Kassa getKassa() {
         return kassa;
     }
@@ -60,4 +64,19 @@ Opdracht 1b:
     public void setKantineAanbod(KantineAanbod kantineAanbod) {
         this.kantineAanbod = kantineAanbod;
     }
+
+    /*
+    Opdracht 1b
+    public double hoeveelheidGeldInKassa() {
+        return kassa.hoeveelheidGeldInKassa();
+    }
+
+    public int aantalArtikelen() {
+        return kassa.aantalArtikelen();
+    }
+
+    public void resetKassa() {
+        kassa.resetKassa();
+    }
+    */
 }
