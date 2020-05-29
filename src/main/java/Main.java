@@ -3,8 +3,8 @@ public class Main {
     public static void main(String[] args) {
 
         /*
-        maandag code mailen
-        vrijdag 29 mei 14:30
+        donderdag 4 juni 16:00
+        dinsdag mailen
          */
 /*
         Datum datum = new Datum(11, 10, 1998);
