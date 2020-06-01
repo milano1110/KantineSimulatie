@@ -9,10 +9,6 @@ public class Dienblad {
     /**
      * Constructor
      */
-    public Dienblad() {
-
-    }
-
     public Dienblad(Persoon klant) {
         this.klant = new Persoon();
         this.artikelen = new Stack<>();

@@ -1,7 +1,6 @@
 public class Main {
 
     public static void main(String[] args) {
-
         /*
         donderdag 4 juni 16:00
         dinsdag mailen
@@ -48,7 +47,6 @@ public class Main {
 
         //System.out.println("Aantal artikelen: " + kantine.aantalArtikelen());
 
-/*
         kassa.rekenAf(klant1);
         kassa.rekenAf(klant2);
         kassa.rekenAf(klant3);
@@ -60,10 +58,19 @@ public class Main {
 
         System.out.println("Aantal artikelen: " + kassa.aantalArtikelen());
         System.out.println("Hoeveelheid geld: " + kassa.hoeveelheidGeldInKassa());
-
  */
         KantineSimulatie kantineSimulatie = new KantineSimulatie();
-        kantineSimulatie.simuleer(50);
+        kantineSimulatie.simuleer(7);
+
+/*
+        //Opdracht 2b:
+        int[] artikelen = {45, 56, 34, 39, 40, 31};
+        double[] omzet = {567.70, 498.25, 458.90};
+        //Administratie administratie = new Administratie();
+        System.out.println(Administratie.berekenGemiddeldAantalArtikelen(artikelen));
+        System.out.println(Administratie.berekenGemiddeldeOmzet(omzet));
+ */
+
 
     }
 }

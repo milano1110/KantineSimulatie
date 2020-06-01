@@ -1,14 +1,51 @@
 public class Administratie {
 
+    // Opdracht 2j:
+    private static final int DAYS_IN_WEEK = 7;
+
+    /**
+     * Constructor
+     * Opdracht 2e:
+     */
+    private Administratie() {
+    }
+
+    /*
+    Opdracht 2c:
+    Omdat Java automatisch een lege default constructor aanmaakt
+
+    Opdracht 2d:
+    Omdat
+
+    Opdracht 2e:
+    Omdat
+
+    Opdracht 2g:
+    Final zorgt er voor dat een variabele maar 1 keer een waarde kan krijgen
+
+    Opdracht 2h:
+    Omdat de variabele niet static is wordt hij niet gemaakt waardoor de methode niet weet wat de variabele is
+
+    Opdracht 2i:
+    Het probleem is dat de variabele weer veranderd kan worden en dat willen we niet
+     */
+
     /**
      * Deze methode berekent van de int array aantal de gemiddelde waarde
      *
-     * @param aantal
+     * @param artikelen
      * @return het gemiddelde
      */
-    public double berekenGemiddeldAantal(int[] aantal) {
-        // method body omitted
-        return 0;
+    public static double berekenGemiddeldAantalArtikelen(int[] artikelen) {
+        if (artikelen != null) {
+            double totaal = 0;
+            for (int artikel : artikelen) {
+                totaal += artikel;
+            }
+            return totaal / artikelen.length;
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -17,9 +54,16 @@ public class Administratie {
      * @param omzet
      * @return het gemiddelde
      */
-    public double berekenGemiddeldeOmzet(double[] omzet) {
-        // method body omitted
-        return 0;
+    public static double berekenGemiddeldeOmzet(double[] omzet) {
+        if (omzet != null) {
+            double totaal = 0;
+            for (double omz : omzet) {
+                totaal += omz;
+            }
+            return totaal / omzet.length;
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -31,10 +75,10 @@ public class Administratie {
 /*
     public static double[] berekenDagOmzet(double[] omzet) {
         double[] temp = new double[7];
-        for(int i = 0; i < 7; i++) {
+        for(int i = 0; i < DAYS_IN_WEEK; i++) {
 
             int j = 0;
-            while ( ... ) {
+            while () {
                 temp[i] += omzet[i + 7 * j];
 
                 // omitted
@@ -43,6 +87,5 @@ public class Administratie {
         }
         return temp;
     }
-
  */
 }
