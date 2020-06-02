@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -69,8 +71,12 @@ public class Main {
         //Administratie administratie = new Administratie();
         System.out.println(Administratie.berekenGemiddeldAantalArtikelen(artikelen));
         System.out.println(Administratie.berekenGemiddeldeOmzet(omzet));
- */
 
+
+        double[] omzet = {321.35, 450.50, 210.45, 190.85, 193.25, 159.90, 214.25, 220.90, 201.90, 242.70, 260.35, 321.35, 450.50, 210.45, 190.85, 193.25, 159.90, 214.25};
+        System.out.println(Arrays.toString(Administratie.berekenDagOmzet(omzet)));
+
+ */
 
     }
 }

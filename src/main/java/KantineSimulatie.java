@@ -3,7 +3,7 @@ import java.text.DecimalFormat;
 
 public class KantineSimulatie {
 
-    private static DecimalFormat df2 = new DecimalFormat("#.##");
+    private static final DecimalFormat df2 = new DecimalFormat("#.##");
 
     // kantine
     private Kantine kantine;
@@ -114,6 +114,10 @@ public class KantineSimulatie {
      * @param dagen
      */
     public void simuleer(int dagen) {
+
+        double [] dagomzet = new double[dagen];
+        int [] artikel = new int[dagen];
+
         // for lus voor dagen
         for(int i = 0; i < dagen; i++) {
 
@@ -127,6 +131,7 @@ public class KantineSimulatie {
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
+
                 // bedenk hoeveel artikelen worden gepakt
                 int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
                 // int aantalartikelen = 3;
@@ -149,6 +154,7 @@ public class KantineSimulatie {
                     // loop de kantine binnen, pak de gewenste
                     // artikelen, sluit aan
                     kantine.loopPakSluitAan(dienbladStudent, artikelen);
+                    //System.out.println(student.toString());
                     aantalStudenten++;
                 }
 
@@ -159,6 +165,7 @@ public class KantineSimulatie {
                     // loop de kantine binnen, pak de gewenste
                     // artikelen, sluit aan
                     kantine.loopPakSluitAan(dienbladDocent, artikelen);
+                    //System.out.println(docent.toString());
                     aantalDocenten++;
                 }
 
@@ -169,6 +176,7 @@ public class KantineSimulatie {
                     // loop de kantine binnen, pak de gewenste
                     // artikelen, sluit aan
                     kantine.loopPakSluitAan(dienbladKantineMedewerker, artikelen);
+                    //System.out.println(kantineMedewerker.toString());
                     aantalKantineMedewerkers++;
                 }
             }
@@ -179,15 +187,25 @@ public class KantineSimulatie {
             System.out.println();
             System.out.println("Dagtotaal: " + df2.format(kantine.getKassa().hoeveelheidGeldInKassa()));
 
+            // tel de dagtotalen in een array op
+            dagomzet[i] = kantine.getKassa().hoeveelheidGeldInKassa();
+
+
+            artikel[i] = kantine.getKassa().aantalArtikelen();
+
             // hoeveel personen binnen zijn gekomen
             System.out.println("Aantal studenten: " + aantalStudenten);
             System.out.println("Aantal docenten: " + aantalDocenten);
             System.out.println("Aantal kantine medewerkers: " + aantalKantineMedewerkers);
             System.out.println("Aantal klanten: " + aantalpersonen);
+            System.out.println("Aantal artikelen: " + kantine.getKassa().aantalArtikelen());
 
             // reset de kassa voor de volgende dag
             kantine.getKassa().resetKassa();
         }
-        //System.out.println(Administratie.berekenGemiddeldAantalArtikelen());
+        // print de totalen per dag uit
+        System.out.println("Dagtotalen: " + Arrays.toString(Administratie.berekenDagOmzet(dagomzet)));
+        System.out.println("Gemiddelde artikelen: " + Administratie.berekenGemiddeldAantalArtikelen(artikel));
+        System.out.println("Gemiddelde omzet: " + df2.format(Administratie.berekenGemiddeldeOmzet(dagomzet)));
     }
 }

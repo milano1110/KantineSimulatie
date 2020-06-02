@@ -15,10 +15,10 @@ public class Administratie {
     Omdat Java automatisch een lege default constructor aanmaakt
 
     Opdracht 2d:
-    Omdat
+    Omdat je geen variabelen hoeft te initialiseren en daarom hoef je ook geen object er van te maken
 
     Opdracht 2e:
-    Omdat
+    Omdat de constructor niet buiten de klasse kan worden aangeroepen en dus kun je er dan geen instantie van maken
 
     Opdracht 2g:
     Final zorgt er voor dat een variabele maar 1 keer een waarde kan krijgen
@@ -68,24 +68,20 @@ public class Administratie {
 
     /**
      * Methode om dagomzet uit te rekenen
+     * Opdracht 2f:
      *
      * @param omzet
      * @return array (7 elementen) met dagomzetten
      */
-/*
     public static double[] berekenDagOmzet(double[] omzet) {
         double[] temp = new double[7];
         for(int i = 0; i < DAYS_IN_WEEK; i++) {
-
             int j = 0;
-            while () {
+            while ((i + 7 * j) < omzet.length) {
                 temp[i] += omzet[i + 7 * j];
-
-                // omitted
-
+                j++;
             }
         }
         return temp;
     }
- */
 }

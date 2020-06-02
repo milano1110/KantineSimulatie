@@ -42,4 +42,9 @@ public class Student extends Persoon {
     public void setStudieRichting(String studieRichting) {
         this.studieRichting = studieRichting;
     }
+
+    @Override
+    public String toString() {
+        return "Student";
+    }
 }

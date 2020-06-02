@@ -39,4 +39,9 @@ public class KantineMedewerker extends Persoon {
     public void setAchterKassa(boolean achterKassa) {
         this.achterKassa = achterKassa;
     }
+
+    @Override
+    public String toString() {
+        return "Kantine Medewerker";
+    }
 }
