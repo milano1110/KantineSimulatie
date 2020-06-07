@@ -27,10 +27,51 @@ public class Kassa {
     public void rekenAf(Dienblad klant) {
         Iterator<Artikel> iter = klant.getIterator();
         if (iter != null) {
+            double totaalbedrag = 0;
+            int totaalArtikelen = 0;
             while (iter.hasNext()) {
                 Artikel artikel = iter.next();
-                this.totaalAantalGeld += artikel.getPrijs();
-                this.totaalAantalArtikelen += 1;
+                totaalbedrag += artikel.getPrijs();
+                totaalArtikelen += 1;
+            }
+
+            double kortingsbedrag = 0;
+            double kortingspercentage;
+
+            if (klant.getKlant() instanceof Docent) {
+                kortingspercentage = ((Docent) klant.getKlant()).geefKortingsPercentage();
+                kortingsbedrag = totaalbedrag * (kortingspercentage / 100);
+                if (((Docent) klant.getKlant()).heeftMaximum()) {
+                    double maximum = ((Docent) klant.getKlant()).geefMaximum();
+                    if (kortingsbedrag > maximum) {
+                        kortingsbedrag = maximum;
+                    }
+                }
+            }
+
+            if (klant.getKlant() instanceof KantineMedewerker) {
+                kortingspercentage = ((KantineMedewerker) klant.getKlant()).geefKortingsPercentage();
+                kortingsbedrag = totaalbedrag * (kortingspercentage / 100);
+
+                if (((KantineMedewerker) klant.getKlant()).heeftMaximum()) {
+                    double maximum = ((KantineMedewerker) klant.getKlant()).geefMaximum();
+                    if (kortingsbedrag > maximum) {
+                        System.out.println(maximum);
+                        kortingsbedrag = maximum;
+                    }
+                }
+            }
+
+            double kortingtotaalbedrag = totaalbedrag - kortingsbedrag;
+            Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
+            double saldo = betaalwijze.getSaldo();
+
+            if (betaalwijze.betaal(kortingtotaalbedrag)) {
+                betaalwijze.setSaldo(saldo - kortingtotaalbedrag);
+                totaalAantalGeld += kortingtotaalbedrag;
+                totaalAantalArtikelen += totaalArtikelen;
+            } else {
+                System.out.println("Betaling niet gelukt.");
             }
         }
     }

@@ -5,6 +5,7 @@ public class Persoon {
     private String achterNaam;
     private Datum geboorteDatum;
     private char geslacht;
+    private Betaalwijze betaalwijze;
 
     public Persoon(int BSN, String voorNaam, String achterNaam, Datum geboorteDatum, char geslacht) {
         this.BSN = BSN;
@@ -73,6 +74,14 @@ public class Persoon {
         else {
             geslacht = 'O';
         }
+    }
+
+    public Betaalwijze getBetaalwijze() {
+        return betaalwijze;
+    }
+
+    public void setBetaalwijze(Betaalwijze betaalwijze) {
+        this.betaalwijze = betaalwijze;
     }
 
     @Override

@@ -10,7 +10,7 @@ public class Dienblad {
      * Constructor
      */
     public Dienblad(Persoon klant) {
-        this.klant = new Persoon();
+        this.klant = klant;
         this.artikelen = new Stack<>();
     }
 

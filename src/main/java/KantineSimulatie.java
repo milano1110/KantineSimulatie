@@ -189,8 +189,6 @@ public class KantineSimulatie {
 
             // tel de dagtotalen in een array op
             dagomzet[i] = kantine.getKassa().hoeveelheidGeldInKassa();
-
-
             artikel[i] = kantine.getKassa().aantalArtikelen();
 
             // hoeveel personen binnen zijn gekomen
