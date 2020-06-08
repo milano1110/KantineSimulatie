@@ -18,7 +18,7 @@ public class KassaRij {
      * @param klant
      */
     public void sluitAchteraan(Dienblad klant) {
-        klanten.add(klant);
+        klanten.push(klant);
     }
 
     /**
@@ -29,13 +29,17 @@ public class KassaRij {
      */
     public Dienblad eerstePersoonInRij() {
         if (erIsEenRij()) {
-            Dienblad eersteKlant = klanten.get(0);
-            klanten.remove(eersteKlant);
+            Dienblad eersteKlant = klanten.getFirst();
+            klanten.removeFirst();
             return eersteKlant;
         }
         else {
             return null;
         }
+    }
+
+    public LinkedList<Dienblad> getKlanten() {
+        return klanten;
     }
 
     /**

@@ -7,7 +7,7 @@ public class Main {
         11 juni 10:00
         maandag mailen
          */
-
+/*
         Datum datum = new Datum(11, 10, 1998);
         Datum foutDatum = new Datum (29, 2, 1900);
         Datum goedDatum = new Datum (11, 10, 1900);
@@ -74,17 +74,17 @@ public class Main {
         System.out.println("Kantine Medewerker saldo: " + persoon3.getBetaalwijze().getSaldo());
 
 
-/*
+
         kassa.resetKassa();
 
         System.out.println("Aantal artikelen: " + kassa.aantalArtikelen());
         System.out.println("Hoeveelheid geld: " + kassa.hoeveelheidGeldInKassa());
 
-
+*/
         KantineSimulatie kantineSimulatie = new KantineSimulatie();
         kantineSimulatie.simuleer(7);
 
-
+/*
         //Opdracht 2b:
         int[] artikelen = {45, 56, 34, 39, 40, 31};
         double[] omzet = {567.70, 498.25, 458.90};

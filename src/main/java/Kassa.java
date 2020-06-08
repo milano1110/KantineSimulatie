@@ -48,11 +48,9 @@ public class Kassa {
                     }
                 }
             }
-
             if (klant.getKlant() instanceof KantineMedewerker) {
                 kortingspercentage = ((KantineMedewerker) klant.getKlant()).geefKortingsPercentage();
                 kortingsbedrag = totaalbedrag * (kortingspercentage / 100);
-
                 if (((KantineMedewerker) klant.getKlant()).heeftMaximum()) {
                     double maximum = ((KantineMedewerker) klant.getKlant()).geefMaximum();
                     if (kortingsbedrag > maximum) {
@@ -61,19 +59,22 @@ public class Kassa {
                     }
                 }
             }
-
-            double kortingtotaalbedrag = totaalbedrag - kortingsbedrag;
-            Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
-            double saldo = betaalwijze.getSaldo();
-
-            if (betaalwijze.betaal(kortingtotaalbedrag)) {
+            try {
+                double kortingtotaalbedrag = totaalbedrag - kortingsbedrag;
+                Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
+                double saldo = betaalwijze.getSaldo();
+                betaalwijze.betaal(kortingtotaalbedrag);
                 betaalwijze.setSaldo(saldo - kortingtotaalbedrag);
                 totaalAantalGeld += kortingtotaalbedrag;
                 totaalAantalArtikelen += totaalArtikelen;
-            } else {
-                System.out.println("Betaling niet gelukt.");
+            } catch (TeWeinigGeldException e) {
+                System.out.println(klant.getKlant().getVoorNaam() + " heeft te weinig saldo.");
             }
         }
+    }
+
+    public KassaRij getKassarij() {
+        return kassarij;
     }
 
     /**

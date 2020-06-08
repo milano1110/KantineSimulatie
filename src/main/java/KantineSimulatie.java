@@ -124,10 +124,11 @@ public class KantineSimulatie {
             int aantalStudenten = 0;
             int aantalDocenten = 0;
             int aantalKantineMedewerkers = 0;
+            Persoon persoon = null;
 
             // bedenk hoeveel personen vandaag binnen lopen
             int aantalpersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
-            // int aantalpersonen = 100;
+            //int aantalpersonen = 100;
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
@@ -148,43 +149,32 @@ public class KantineSimulatie {
 
                 // maak persoon en dienblad aan, koppel ze
                 if (randomPersoon >= 0 && randomPersoon <= 88) {
-                    Persoon student = new Student();
-                    Dienblad dienbladStudent = new Dienblad(student);
-
-                    // loop de kantine binnen, pak de gewenste
-                    // artikelen, sluit aan
-                    kantine.loopPakSluitAan(dienbladStudent, artikelen);
-                    //System.out.println(student.toString());
+                    persoon = new Student(123456789, "Milan", "Schuringa", new Datum(11, 10, 1998) ,'M', 359838, "HBO-ICT");
                     aantalStudenten++;
                 }
-
                 if (randomPersoon >= 89 && randomPersoon <= 98) {
-                    Persoon docent = new Docent();
-                    Dienblad dienbladDocent = new Dienblad(docent);
-
-                    // loop de kantine binnen, pak de gewenste
-                    // artikelen, sluit aan
-                    kantine.loopPakSluitAan(dienbladDocent, artikelen);
-                    //System.out.println(docent.toString());
+                    persoon = new Docent(123456789, "Lieuwe", "Baron", new Datum(11, 5, 2002), 'M', "BALI", "Java-theorie");
                     aantalDocenten++;
                 }
-
                 if (randomPersoon == 99) {
-                    Persoon kantineMedewerker = new KantineMedewerker();
-                    Dienblad dienbladKantineMedewerker = new Dienblad(kantineMedewerker);
-
-                    // loop de kantine binnen, pak de gewenste
-                    // artikelen, sluit aan
-                    kantine.loopPakSluitAan(dienbladKantineMedewerker, artikelen);
-                    //System.out.println(kantineMedewerker.toString());
+                    persoon = new KantineMedewerker(123456789, "X", "Y", new Datum(1,1,1980), 'M', 42, false);
                     aantalKantineMedewerkers++;
                 }
+
+                Dienblad dienblad = new Dienblad(persoon);
+                Betaalwijze betaalwijze = new Contant();
+                assert persoon != null;
+                persoon.setBetaalwijze(betaalwijze);
+                betaalwijze.setSaldo(getRandomValue(0, 20));
+
+                // loop de kantine binnen, pak de gewenste
+                // artikelen, sluit aan
+                kantine.loopPakSluitAan(dienblad, artikelen);
             }
-            // verwerk rij voor de kassa
+            //verwerk rij voor de kassa
             kantine.verwerkRijVoorKassa();
 
             // druk de dagtotalen af
-            System.out.println();
             System.out.println("Dagtotaal: " + df2.format(kantine.getKassa().hoeveelheidGeldInKassa()));
 
             // tel de dagtotalen in een array op
@@ -197,6 +187,7 @@ public class KantineSimulatie {
             System.out.println("Aantal kantine medewerkers: " + aantalKantineMedewerkers);
             System.out.println("Aantal klanten: " + aantalpersonen);
             System.out.println("Aantal artikelen: " + kantine.getKassa().aantalArtikelen());
+            System.out.println();
 
             // reset de kassa voor de volgende dag
             kantine.getKassa().resetKassa();

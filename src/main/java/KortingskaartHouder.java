@@ -14,4 +14,5 @@ public interface KortingskaartHouder {
      * Methode om het maximum kortingsbedrag op te vragen
      */
     public double geefMaximum();
+
 }
