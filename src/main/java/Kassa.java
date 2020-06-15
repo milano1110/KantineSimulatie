@@ -29,36 +29,38 @@ public class Kassa {
         if (iter != null) {
             double totaalbedrag = 0;
             int totaalArtikelen = 0;
-            while (iter.hasNext()) {
-                Artikel artikel = iter.next();
-                totaalbedrag += artikel.getPrijs();
-                totaalArtikelen += 1;
-            }
-
             double kortingsbedrag = 0;
             double kortingspercentage;
 
-            if (klant.getKlant() instanceof Docent) {
-                kortingspercentage = ((Docent) klant.getKlant()).geefKortingsPercentage();
-                kortingsbedrag = totaalbedrag * (kortingspercentage / 100);
-                if (((Docent) klant.getKlant()).heeftMaximum()) {
-                    double maximum = ((Docent) klant.getKlant()).geefMaximum();
-                    if (kortingsbedrag > maximum) {
-                        kortingsbedrag = maximum;
+            while (iter.hasNext()) {
+                Artikel artikel = iter.next();
+                totaalbedrag += (artikel.getPrijs() - artikel.getKorting());
+                totaalArtikelen++;
+
+                if (artikel.getKorting() == 0.00) {
+                    if (klant.getKlant() instanceof Docent) {
+                        kortingspercentage = ((Docent) klant.getKlant()).geefKortingsPercentage();
+                        kortingsbedrag += artikel.getPrijs() * (kortingspercentage / 100);
+                        if (((Docent) klant.getKlant()).heeftMaximum()) {
+                            double maximum = ((Docent) klant.getKlant()).geefMaximum();
+                            if (kortingsbedrag > maximum) {
+                                kortingsbedrag = maximum;
+                            }
+                        }
+                    }
+                    if (klant.getKlant() instanceof KantineMedewerker) {
+                        kortingspercentage = ((KantineMedewerker) klant.getKlant()).geefKortingsPercentage();
+                        kortingsbedrag += artikel.getPrijs() * (kortingspercentage / 100);
+                        if (((KantineMedewerker) klant.getKlant()).heeftMaximum()) {
+                            double maximum = ((KantineMedewerker) klant.getKlant()).geefMaximum();
+                            if (kortingsbedrag > maximum) {
+                                kortingsbedrag = maximum;
+                            }
+                        }
                     }
                 }
             }
-            if (klant.getKlant() instanceof KantineMedewerker) {
-                kortingspercentage = ((KantineMedewerker) klant.getKlant()).geefKortingsPercentage();
-                kortingsbedrag = totaalbedrag * (kortingspercentage / 100);
-                if (((KantineMedewerker) klant.getKlant()).heeftMaximum()) {
-                    double maximum = ((KantineMedewerker) klant.getKlant()).geefMaximum();
-                    if (kortingsbedrag > maximum) {
-                        System.out.println(maximum);
-                        kortingsbedrag = maximum;
-                    }
-                }
-            }
+
             try {
                 double kortingtotaalbedrag = totaalbedrag - kortingsbedrag;
                 Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();

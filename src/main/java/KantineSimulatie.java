@@ -1,3 +1,7 @@
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.text.DecimalFormat;
 
@@ -34,6 +38,9 @@ public class KantineSimulatie {
     // minimum en maximum artikelen per persoon
     private static final int MIN_ARTIKELEN_PER_PERSOON = 1;
     private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
+
+    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("KantineSimulatie");
+    private EntityManager manager;
 
     /**
      * Constructor
@@ -115,6 +122,8 @@ public class KantineSimulatie {
      */
     public void simuleer(int dagen) {
 
+        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+
         double [] dagomzet = new double[dagen];
         int [] artikel = new int[dagen];
 
@@ -129,6 +138,19 @@ public class KantineSimulatie {
             // bedenk hoeveel personen vandaag binnen lopen
             int aantalpersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
             //int aantalpersonen = 100;
+
+            int aantalArtikelenKorting = getRandomValue(1, AANTAL_ARTIKELEN);
+            ArrayList<Integer> randomArtikelen = new ArrayList<>();
+
+            for (int k = 0; k < aantalArtikelenKorting; k++) {
+                int random = getRandomValue(1,aantalArtikelenKorting);
+                Artikel kortingartikel = kantineaanbod.getArtikel(artikelnamen[random - 1]);
+                kortingartikel.setKorting(((kortingartikel.getPrijs() / 100) * 20));
+
+                if (!randomArtikelen.contains(random)) {
+                    randomArtikelen.add(random);
+                }
+            }
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
@@ -187,14 +209,22 @@ public class KantineSimulatie {
             System.out.println("Aantal kantine medewerkers: " + aantalKantineMedewerkers);
             System.out.println("Aantal klanten: " + aantalpersonen);
             System.out.println("Aantal artikelen: " + kantine.getKassa().aantalArtikelen());
+            System.out.println("Korting artikelen: " + randomArtikelen.toString());
             System.out.println();
 
             // reset de kassa voor de volgende dag
             kantine.getKassa().resetKassa();
+
+            for (int l = 0; l < randomArtikelen.size(); l++) {
+                kantineaanbod.getArtikel(artikelnamen[l]).setKorting(0.00);
+            }
         }
         // print de totalen per dag uit
         System.out.println("Dagtotalen: " + Arrays.toString(Administratie.berekenDagOmzet(dagomzet)));
         System.out.println("Gemiddelde artikelen: " + Administratie.berekenGemiddeldAantalArtikelen(artikel));
         System.out.println("Gemiddelde omzet: " + df2.format(Administratie.berekenGemiddeldeOmzet(dagomzet)));
+
+        manager.close();
+        ENTITY_MANAGER_FACTORY.close();
     }
 }
