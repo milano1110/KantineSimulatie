@@ -25,7 +25,7 @@ public class Theorie {
     Opdracht 4:
     A: Ja dat kan, niet elke methode hoeft abstract te zijn. De methodes hoeven dan niet worden overschreven maar
         dat kan wel.
-    B: Ja, omdat abstracte methodes geen body hebben, moeten de sub klassen die zelf implementeren.
+    B: Ja, omdat abstracte methodes geen body hebben, moeten de sub klassen die zelf implementeren. X
     C: Je kunt de klasse abstract maken. Een abstracte klasse kan dan de methodes laten implementeren door de sub klassen.
     D: Je kunt geërfde velden niet overschrijven daarom kunnen ze niet abstract zijn.
     E: Een final methode kan niet worden veranderd door een buitenstaander, dus ook niet sub klassen.

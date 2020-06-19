@@ -1,11 +1,8 @@
-import java.util.Arrays;
-
 public class Main {
 
     public static void main(String[] args) {
         /*
-        18 juni 14:45
-        maandag mailen
+        22 juni 15:00
          */
 /*
         Datum datum = new Datum(11, 10, 1998);
@@ -82,7 +79,7 @@ public class Main {
 
 */
         KantineSimulatie kantineSimulatie = new KantineSimulatie();
-        kantineSimulatie.simuleer(7);
+        kantineSimulatie.simuleer(1);
 
 /*
         //Opdracht 2b:

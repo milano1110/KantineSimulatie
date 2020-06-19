@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -9,9 +8,14 @@ public class Dienblad {
     /**
      * Constructor
      */
-    public Dienblad(Persoon klant) {
-        this.klant = klant;
+    public Dienblad() {
         this.artikelen = new Stack<>();
+    }
+
+    public Dienblad(Persoon klant) {
+        this();
+        this.klant = klant;
+
     }
 
     public Persoon getKlant() {
