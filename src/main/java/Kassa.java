@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Iterator;
 
 public class Kassa {
@@ -25,53 +26,30 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
+        Factuur factuur = new Factuur(klant, LocalDate.now());
+
+        /*
+        int totaalArtikelen = 0;
         Iterator<Artikel> iter = klant.getIterator();
         if (iter != null) {
-            double totaalbedrag = 0;
-            int totaalArtikelen = 0;
-            double kortingsbedrag = 0;
-            double kortingspercentage;
-
             while (iter.hasNext()) {
                 Artikel artikel = iter.next();
-                totaalbedrag += (artikel.getPrijs() - artikel.getKorting());
                 totaalArtikelen++;
-
-                if (artikel.getKorting() == 0.00) {
-                    if (klant.getKlant() instanceof Docent) {
-                        kortingspercentage = ((Docent) klant.getKlant()).geefKortingsPercentage();
-                        kortingsbedrag += artikel.getPrijs() * (kortingspercentage / 100);
-                        if (((Docent) klant.getKlant()).heeftMaximum()) {
-                            double maximum = ((Docent) klant.getKlant()).geefMaximum();
-                            if (kortingsbedrag > maximum) {
-                                kortingsbedrag = maximum;
-                            }
-                        }
-                    }
-                    if (klant.getKlant() instanceof KantineMedewerker) {
-                        kortingspercentage = ((KantineMedewerker) klant.getKlant()).geefKortingsPercentage();
-                        kortingsbedrag += artikel.getPrijs() * (kortingspercentage / 100);
-                        if (((KantineMedewerker) klant.getKlant()).heeftMaximum()) {
-                            double maximum = ((KantineMedewerker) klant.getKlant()).geefMaximum();
-                            if (kortingsbedrag > maximum) {
-                                kortingsbedrag = maximum;
-                            }
-                        }
-                    }
-                }
             }
+        }
+         */
 
-            try {
-                double kortingtotaalbedrag = totaalbedrag - kortingsbedrag;
-                Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
-                double saldo = betaalwijze.getSaldo();
-                betaalwijze.betaal(kortingtotaalbedrag);
-                betaalwijze.setSaldo(saldo - kortingtotaalbedrag);
-                totaalAantalGeld += kortingtotaalbedrag;
-                totaalAantalArtikelen += totaalArtikelen;
-            } catch (TeWeinigGeldException e) {
-                System.out.println(klant.getKlant().getVoorNaam() + " heeft te weinig saldo.");
-            }
+        try {
+            double kortingtotaalbedrag = factuur.getTotaal() - factuur.getKorting();
+            Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
+            double saldo = betaalwijze.getSaldo();
+            betaalwijze.betaal(kortingtotaalbedrag);
+            betaalwijze.setSaldo(saldo - kortingtotaalbedrag);
+            totaalAantalGeld += kortingtotaalbedrag;
+            totaalAantalArtikelen += factuur.getArtikelen(); //totaalArtikelen;
+            System.out.println(factuur.toString());
+        } catch (TeWeinigGeldException e) {
+            System.out.println(klant.getKlant().getVoorNaam() + " heeft te weinig saldo.");
         }
     }
 

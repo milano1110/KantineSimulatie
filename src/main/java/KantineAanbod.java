@@ -21,6 +21,7 @@ HashSet als je een implementatie van Set moet hebben waar geen dubbele data in v
      * dimensies van de drie arrays moeten wel gelijk zijn!
      */
     public KantineAanbod(String[] artikelnaam, double[] prijs, int[] hoeveelheid) {
+        /*
         aanbod = new HashMap<String, ArrayList<Artikel>>();
         startVoorraad = new HashMap<String, Integer>();
         prijzen = new HashMap<String, Double>();
@@ -32,6 +33,31 @@ HashSet als je een implementatie van Set moet hebben waar geen dubbele data in v
             startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
             prijzen.put(artikelnaam[i], prijs[i]);
             aanbod.put(artikelnaam[i], artikelen);
+        }
+
+         */
+        aanbod = new HashMap<String, ArrayList<Artikel>>();
+        startVoorraad = new HashMap<String, Integer>();
+        prijzen = new HashMap<String, Double>();
+
+        Random random = new Random();
+        int randomNumber = random.nextInt(artikelnaam.length);
+        int AllKortingArtikelenZijnGeweest = 0;
+        for (int i = 0; i < artikelnaam.length; i++) {
+            ArrayList<Artikel> artikelen = new ArrayList<>();
+            if(AllKortingArtikelenZijnGeweest <= randomNumber) {
+                for (int j = 0; j < hoeveelheid[i]; j++) {
+                    artikelen.add(new Artikel(artikelnaam[i], prijs[i], (prijs[i] * 0.2)));
+                }
+            } else {
+                for (int j = 0; j < hoeveelheid[i]; j++) {
+                    artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
+                }
+            }
+            startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
+            prijzen.put(artikelnaam[i], prijs[i]);
+            aanbod.put(artikelnaam[i], artikelen);
+            AllKortingArtikelenZijnGeweest++;
         }
     }
 

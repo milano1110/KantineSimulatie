@@ -22,10 +22,10 @@ public class KantineSimulatie {
     private static final int AANTAL_ARTIKELEN = 4;
 
     // artikelen
-    private static final String[] artikelnamen = new String[] {"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"};
+    private static final String[] artikelnamen = new String[] {"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"}; //
 
     // prijzen
-    private static final double[] artikelprijzen = new double[] {1.50, 2.10, 1.65, 1.65};
+    private static final double[] artikelprijzen = new double[] {1.50, 2.10, 1.65, 1.65}; //
 
     // minimum en maximum aantal artikelen per soort
     private static final int MIN_ARTIKELEN_PER_SOORT = 10;
@@ -40,7 +40,6 @@ public class KantineSimulatie {
     private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
 
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("KantineSimulatie");
-    private EntityManager manager;
 
     /**
      * Constructor
@@ -122,7 +121,7 @@ public class KantineSimulatie {
      */
     public void simuleer(int dagen) {
 
-        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         double [] dagomzet = new double[dagen];
         int [] artikel = new int[dagen];
@@ -136,19 +135,23 @@ public class KantineSimulatie {
             Persoon persoon = null;
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
-            //int aantalpersonen = 100;
+            //int aantalpersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
+            int aantalpersonen = 5;
 
             int aantalArtikelenKorting = getRandomValue(1, AANTAL_ARTIKELEN);
             ArrayList<Integer> randomArtikelen = new ArrayList<>();
+            ArrayList<Artikel> kortingsArtikelen = new ArrayList<>();
 
             for (int k = 0; k < aantalArtikelenKorting; k++) {
                 int random = getRandomValue(1,aantalArtikelenKorting);
                 Artikel kortingartikel = kantineaanbod.getArtikel(artikelnamen[random - 1]);
                 kortingartikel.setKorting(((kortingartikel.getPrijs() / 100) * 20));
 
+                //System.out.println(kantineaanbod.getArtikel(artikelnamen[0]).getKorting());
+
                 if (!randomArtikelen.contains(random)) {
                     randomArtikelen.add(random);
+                    kortingsArtikelen.add(kortingartikel);
                 }
             }
 
@@ -156,12 +159,12 @@ public class KantineSimulatie {
             for (int j = 0; j < aantalpersonen; j++) {
 
                 // bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
-                // int aantalartikelen = 3;
+                //int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
+                 int aantalartikelen = 4;
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
-                int[] tepakken = getRandomArray(aantalartikelen, 0, AANTAL_ARTIKELEN - 1);
+                int[] tepakken = getRandomArray(aantalartikelen, 0, AANTAL_ARTIKELEN - 1); //
 
                 // vind de artikelnamen op basis van
                 // de indexen hierboven
