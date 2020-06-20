@@ -1,11 +1,13 @@
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
+@Entity
+@Table(name = "factuur")
 
 public class Factuur implements Serializable {
 
@@ -20,6 +22,8 @@ public class Factuur implements Serializable {
     private double totaal;
     @Column(name = "artikelen")
     private int artikelen;
+    //@ManyToMany(cascade = CascadeType.ALL)
+    //private List<FactuurRegel> regels = new ArrayList<>();
 
     private String persoonSoort = "";
 
@@ -60,6 +64,8 @@ public class Factuur implements Serializable {
                 totaalbedrag += artikel.getPrijs();
                 kortingsbedrag += artikel.getKorting();
                 totaalArtikelen++;
+
+                //regels.add(new FactuurRegel(this, artikel));
 
                 if (artikel.getKorting() == 0.00) {
                     if (klant.getKlant() instanceof Docent) {
@@ -123,7 +129,8 @@ public class Factuur implements Serializable {
     public String toString() {
 
         String returnString = "Datum: " + this.datum + "\nAantal artikelen: " + getArtikelen() + "\nTotaal: " + df2.format(getTotaal()) +
-                "\nKorting: " + df2.format(getKorting()) + "\nTotaal bedrag: " + df2.format((getTotaal() - getKorting())) + "\nPersoon: " + persoonSoort + "\n";
+                "\nKorting: " + df2.format(getKorting()) + "\nTotaal bedrag: " + df2.format((getTotaal() - getKorting()))
+                + "\nPersoon: " + persoonSoort + "\nArtikelen: "; //regels.toString();
         return returnString;
     }
 }

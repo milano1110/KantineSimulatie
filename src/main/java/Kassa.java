@@ -1,19 +1,22 @@
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.time.LocalDate;
-import java.util.Iterator;
 
 public class Kassa {
 
     private KassaRij kassarij;
     private int totaalAantalArtikelen;
     private double totaalAantalGeld;
+    EntityManager manager;
 
     /**
      * Constructor
      */
-    public Kassa(KassaRij kassarij) {
+    public Kassa(KassaRij kassarij, EntityManager eManager) {
         this.kassarij = kassarij;
         this.totaalAantalArtikelen = 0;
         this.totaalAantalGeld = 0;
+        this.manager = eManager;
     }
 
     /**
@@ -27,6 +30,7 @@ public class Kassa {
      */
     public void rekenAf(Dienblad klant) {
         Factuur factuur = new Factuur(klant, LocalDate.now());
+        EntityTransaction transaction = null;
 
         /*
         int totaalArtikelen = 0;
@@ -40,6 +44,8 @@ public class Kassa {
          */
 
         try {
+            transaction = manager.getTransaction();
+            transaction.begin();
             double kortingtotaalbedrag = factuur.getTotaal() - factuur.getKorting();
             Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
             double saldo = betaalwijze.getSaldo();
@@ -48,8 +54,11 @@ public class Kassa {
             totaalAantalGeld += kortingtotaalbedrag;
             totaalAantalArtikelen += factuur.getArtikelen(); //totaalArtikelen;
             System.out.println(factuur.toString());
+            manager.persist(factuur);
+            transaction.commit();
         } catch (TeWeinigGeldException e) {
             System.out.println(klant.getKlant().getVoorNaam() + " heeft te weinig saldo.");
+            transaction.rollback();
         }
     }
 

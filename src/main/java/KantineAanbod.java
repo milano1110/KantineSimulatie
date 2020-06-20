@@ -40,8 +40,11 @@ HashSet als je een implementatie van Set moet hebben waar geen dubbele data in v
         startVoorraad = new HashMap<String, Integer>();
         prijzen = new HashMap<String, Double>();
 
+        int max = artikelnaam.length;
+        int min = 1;
+
         Random random = new Random();
-        int randomNumber = random.nextInt(artikelnaam.length);
+        int randomNumber = random.nextInt(max - min + 1) + min;
         int AllKortingArtikelenZijnGeweest = 0;
         for (int i = 0; i < artikelnaam.length; i++) {
             ArrayList<Artikel> artikelen = new ArrayList<>();

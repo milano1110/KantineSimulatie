@@ -1,15 +1,19 @@
+import javax.persistence.EntityManager;
+
 public class Kantine {
 
     private Kassa kassa;
     private KassaRij kassarij;
     private KantineAanbod kantineAanbod;
+    EntityManager manager;
 
     /**
      * Constructor
      */
-    public Kantine() {
+    public Kantine(EntityManager eManager) {
         kassarij = new KassaRij();
-        kassa = new Kassa(kassarij);
+        this.manager = eManager;
+        kassa = new Kassa(kassarij, manager);
     }
 
     /**

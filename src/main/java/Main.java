@@ -78,6 +78,7 @@ public class Main {
         System.out.println("Hoeveelheid geld: " + kassa.hoeveelheidGeldInKassa());
 
 */
+
         KantineSimulatie kantineSimulatie = new KantineSimulatie();
         kantineSimulatie.simuleer(1);
 

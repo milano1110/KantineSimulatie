@@ -45,7 +45,7 @@ public class Artikel {
 
     @Override
     public String toString() {
-        String returnString = getNaam() + " " + getPrijs();
+        String returnString = getNaam() + " " + getPrijs() + " " + getKorting();
         return returnString;
     }
 }
