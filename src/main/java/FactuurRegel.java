@@ -1,4 +1,4 @@
-/*
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ public class FactuurRegel implements Serializable {
     private Long id;
     @ManyToOne(cascade = CascadeType.ALL)
     private Factuur factuur;
-
+    @OneToOne(cascade = CascadeType.ALL)
     private Artikel artikel;
 
     public FactuurRegel() {
@@ -25,13 +25,14 @@ public class FactuurRegel implements Serializable {
 
     /**
      * @return een printbare factuurregel
-     *
+     */
     public String toString() {
-        String returnString = "Factuur: " + factuur + "Artikel: " + artikel;
+        String returnString = "\nArtikelnaam: " + artikel.getNaam() + "\nArtikelprijs: "
+                + artikel.getPrijs() + "\nArtikelkorting: " + artikel.getKorting() + "\n";
         return returnString;
     }
 }
 
- */
+
 
 

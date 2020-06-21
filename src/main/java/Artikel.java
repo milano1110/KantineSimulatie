@@ -1,7 +1,18 @@
+import javax.persistence.*;
+
+@Entity
+@Table(name = "artikel")
 public class Artikel {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
+    private Long id;
+    @Column(name = "naam", nullable = false)
     private String naam;        //Opgave 1b: Naam declareren
+    @Column(name = "prijs", nullable = false)
     private double prijs;       //Opgave 1b: Prijs declareren
+    @Column(name = "korting")
     private double korting;
 
     public Artikel(String naam, double prijs) {

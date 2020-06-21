@@ -23,10 +23,10 @@ public class KantineSimulatie {
     private static final int AANTAL_ARTIKELEN = 4;
 
     // artikelen
-    private static final String[] artikelnamen = new String[] {"Koffie"}; //, "Broodje pindakaas", "Broodje kaas", "Appelsap"
+    private static final String[] artikelnamen = new String[] {"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"}; //
 
     // prijzen
-    private static final double[] artikelprijzen = new double[] {1.50}; //, 2.10, 1.65, 1.65
+    private static final double[] artikelprijzen = new double[] {1.50, 2.10, 1.65, 1.65}; //
 
     // minimum en maximum aantal artikelen per soort
     private static final int MIN_ARTIKELEN_PER_SOORT = 10;
@@ -115,39 +115,74 @@ public class KantineSimulatie {
         return artikelen;
     }
 
-    public List<Double> getHoogsteOmzet() {
+    /**
+     * Haalt de top 3 hoogste omzet op uit de database
+     * @return list met top 3 omzet
+     */
+    private List<Double> getHoogsteOmzet() {
         return manager.
                 createQuery("SELECT totaal FROM Factuur ORDER BY totaal DESC",
                         Double.class).setMaxResults(3).getResultList();
     }
 
-    public double getTotaalKorting() {
+    /**
+     * Haalt de totale korting op uit de database
+     * @return de totale korting
+     */
+    private double getTotaalKorting() {
         Query query = manager.createQuery("SELECT SUM(korting) FROM Factuur");
         return (Double) query.getSingleResult();
     }
 
-    public double getGemiddeldeKorting() {
+    /**
+     * Haalt de gemiddelde korting op uit de database
+     * @return de gemiddelde korting
+     */
+    private double getGemiddeldeKorting() {
         Query query = manager.createQuery("SELECT AVG(korting) FROM Factuur");
         return (Double) query.getSingleResult();
     }
 
-    public double getTotaalOmzet() {
+    /**
+     * Haalt de totale omzet op uit de database
+     * @return de totale omzet
+     */
+    private double getTotaalOmzet() {
         Query query = manager.createQuery("SELECT SUM(totaal) FROM Factuur");
         return (Double) query.getSingleResult();
     }
 
-    public double getGemiddeldeOmzet() {
+    /**
+     * Haalt de gemiddelde omzet op uit de database
+     * @return de gemiddelde omzet
+     */
+    private double getGemiddeldeOmzet() {
         Query query = manager.createQuery("SELECT AVG(totaal) FROM Factuur");
         return (Double) query.getSingleResult();
     }
 
+    private void dagKorting() {
+        int aantalArtikelenKorting = getRandomValue(1, AANTAL_ARTIKELEN);
+        ArrayList<Integer> randomArtikelen = new ArrayList<>();
+        ArrayList<Artikel> kortingArtikelen = new ArrayList<>();
 
+        for (int k = 0; k < aantalArtikelenKorting; k++) {
+            int random = getRandomValue(1,aantalArtikelenKorting);
+            Artikel kortingartikel = kantineaanbod.getArtikel(artikelnamen[random - 1]);
+            kortingartikel.setKorting((kortingartikel.getPrijs() * 0.20));
+
+            if (!randomArtikelen.contains(random)) {
+                randomArtikelen.add(random);
+                kortingArtikelen.add(kortingartikel);
+            }
+        }
+    }
 
     /**
      * Deze methode simuleert een aantal dagen
      * in het verloop van de kantine
      *
-     * @param dagen
+     * @param dagen Het aantal dagen dat gesimuleerd wordt
      */
     public void simuleer(int dagen) {
 
@@ -165,33 +200,19 @@ public class KantineSimulatie {
             // bedenk hoeveel personen vandaag binnen lopen
             //int aantalpersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
             int aantalpersonen = 5;
-/*
-            int aantalArtikelenKorting = getRandomValue(1, AANTAL_ARTIKELEN);
-            ArrayList<Integer> randomArtikelen = new ArrayList<>();
 
-
-            for (int k = 0; k < aantalArtikelenKorting; k++) {
-                int random = getRandomValue(1,aantalArtikelenKorting);
-                Artikel kortingartikel = kantineaanbod.getArtikel(artikelnamen[random - 1]);
-                kortingartikel.setKorting(((kortingartikel.getPrijs() / 100) * 20));
-
-                if (!randomArtikelen.contains(random)) {
-                    randomArtikelen.add(random);
-                }
-            }
-
- */
+            dagKorting();
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
 
                 // bedenk hoeveel artikelen worden gepakt
-                //int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
-                int aantalartikelen = 4;
+                int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
+                //int aantalartikelen = 4;
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
-                int[] tepakken = getRandomArray(aantalartikelen, 0, 0); //AANTAL_ARTIKELEN - 1
+                int[] tepakken = getRandomArray(aantalartikelen, 0, AANTAL_ARTIKELEN - 1); //
 
                 // vind de artikelnamen op basis van
                 // de indexen hierboven
@@ -199,7 +220,7 @@ public class KantineSimulatie {
 
                 int randomPersoon = random.nextInt(100);
 
-                // maak persoon en dienblad aan, koppel ze
+                // maak persoon aan
                 if (randomPersoon >= 0 && randomPersoon <= 88) {
                     persoon = new Student(123456789, "Milan", "Schuringa", new Datum(11, 10, 1998) ,'M', 359838, "HBO-ICT");
                     aantalStudenten++;
@@ -213,8 +234,20 @@ public class KantineSimulatie {
                     aantalKantineMedewerkers++;
                 }
 
+                // koppel dienblad aan persoon
                 Dienblad dienblad = new Dienblad(persoon);
-                Betaalwijze betaalwijze = new Contant();
+
+                // maak een willekeurig betaalwijze aan
+                int randomBetaalwijze = random.nextInt(2);
+                Betaalwijze betaalwijze;
+
+                if (randomBetaalwijze == 0) {
+                    betaalwijze = new Contant();
+                } else {
+                    betaalwijze = new Pinpas();
+                }
+
+                // koppel de betaalwijze aan een persoon en zet willekeurig saldo tussen 0-20
                 assert persoon != null;
                 persoon.setBetaalwijze(betaalwijze);
                 betaalwijze.setSaldo(getRandomValue(0, 20));
@@ -227,6 +260,7 @@ public class KantineSimulatie {
             kantine.verwerkRijVoorKassa();
 
             // druk de dagtotalen af
+            System.out.println("\nDag: " + (i + 1));
             System.out.println("Dagtotaal: " + df2.format(kantine.getKassa().hoeveelheidGeldInKassa()));
 
             // tel de dagtotalen in een array op
@@ -234,11 +268,10 @@ public class KantineSimulatie {
             artikel[i] = kantine.getKassa().aantalArtikelen();
 
             // hoeveel personen binnen zijn gekomen
-            System.out.println("Dag: " + (i + 1));
+            System.out.println("Aantal klanten: " + aantalpersonen);
             System.out.println("Aantal studenten: " + aantalStudenten);
             System.out.println("Aantal docenten: " + aantalDocenten);
             System.out.println("Aantal kantine medewerkers: " + aantalKantineMedewerkers);
-            System.out.println("Aantal klanten: " + aantalpersonen);
             System.out.println("Aantal artikelen: " + kantine.getKassa().aantalArtikelen());
             //System.out.println("Korting artikelen: " + randomArtikelen.toString());
             System.out.println();
@@ -249,7 +282,6 @@ public class KantineSimulatie {
             for (int l = 0; l < randomArtikelen.size(); l++) {
                 kantineaanbod.getArtikel(artikelnamen[l]).setKorting(0.00);
             }
-
  */
         }
         // print de totalen per dag uit

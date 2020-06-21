@@ -3,6 +3,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,19 +14,21 @@ public class Factuur implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     private Long id;
-    @Column(name = "datum")
+    @Column(name = "datum", nullable = false)
     private LocalDate datum;
     @Column(name = "korting")
     private double korting;
-    @Column(name = "totaal")
+    @Column(name = "totaal", nullable = false)
     private double totaal;
     @Column(name = "artikelen")
     private int artikelen;
-    //@ManyToMany(cascade = CascadeType.ALL)
-    //private List<FactuurRegel> regels = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<FactuurRegel> regels = new ArrayList<>();
 
     private String persoonSoort = "";
+    private String betaalwijze = "";
 
     private static final DecimalFormat df2 = new DecimalFormat("#.##");
 
@@ -58,6 +61,7 @@ public class Factuur implements Serializable {
             double kortingsbedrag = 0;
             double kortingspercentage;
 
+            // Iterator om door de artikelen heen te lopen
             while (iter.hasNext()) {
                 Artikel artikel = iter.next();
 
@@ -65,8 +69,11 @@ public class Factuur implements Serializable {
                 kortingsbedrag += artikel.getKorting();
                 totaalArtikelen++;
 
-                //regels.add(new FactuurRegel(this, artikel));
+                // Voeg het artikel toe aan de factuur regel
+                regels.add(new FactuurRegel(this, artikel));
 
+                // Als het artikel geen korting heeft en de klant is een Docent of Kantine Medewerker,
+                // bereken dan de korting voor de artikelen
                 if (artikel.getKorting() == 0.00) {
                     if (klant.getKlant() instanceof Docent) {
                         kortingspercentage = ((Docent) klant.getKlant()).geefKortingsPercentage();
@@ -99,6 +106,14 @@ public class Factuur implements Serializable {
             if (klant.getKlant() instanceof KantineMedewerker) {
                 persoonSoort = "Kantine medewerker";
             }
+
+            if (klant.getKlant().getBetaalwijze() instanceof Contant) {
+                betaalwijze = "Contant";
+            }
+            if (klant.getKlant().getBetaalwijze() instanceof Pinpas) {
+                betaalwijze = "Pinpas";
+            }
+
             totaal = totaalbedrag;
             korting = kortingsbedrag;
             artikelen = totaalArtikelen;
@@ -127,10 +142,9 @@ public class Factuur implements Serializable {
      * @return een printbaar bonnetje
      */
     public String toString() {
-
-        String returnString = "Datum: " + this.datum + "\nAantal artikelen: " + getArtikelen() + "\nTotaal: " + df2.format(getTotaal()) +
-                "\nKorting: " + df2.format(getKorting()) + "\nTotaal bedrag: " + df2.format((getTotaal() - getKorting()))
-                + "\nPersoon: " + persoonSoort + "\nArtikelen: "; //regels.toString();
+        String returnString = "\nFactuur: \nDatum: " + this.datum + "\nAantal artikelen: " + getArtikelen() +
+                "\nTotaal: " + df2.format(getTotaal()) + "\nKorting: " + df2.format(getKorting()) + "\nTotaal bedrag: " + df2.format((getTotaal() - getKorting()))
+                 + "\nArtikelen: " + regels.toString() + "\nPersoon: " + persoonSoort + "\nBetaalwijze: " + betaalwijze;
         return returnString;
     }
 }

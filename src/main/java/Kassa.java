@@ -57,7 +57,7 @@ public class Kassa {
             manager.persist(factuur);
             transaction.commit();
         } catch (TeWeinigGeldException e) {
-            System.out.println(klant.getKlant().getVoorNaam() + " heeft te weinig saldo.");
+            System.out.println(klant.getKlant().getVoorNaam() + " heeft te weinig saldo." + "Betaalwijze: " + klant.getKlant().getBetaalwijze().toString());
             transaction.rollback();
         }
     }
