@@ -5,6 +5,7 @@ public class KantineAanbod {
     private HashMap<String, ArrayList<Artikel>> aanbod;
     private HashMap<String, Integer> startVoorraad;
     private HashMap<String, Double> prijzen;
+    private String[] artikelNamen;
 
 /*
 Opdracht 5a:
@@ -21,7 +22,7 @@ HashSet als je een implementatie van Set moet hebben waar geen dubbele data in v
      * dimensies van de drie arrays moeten wel gelijk zijn!
      */
     public KantineAanbod(String[] artikelnaam, double[] prijs, int[] hoeveelheid) {
-
+        this.artikelNamen = artikelnaam;
         aanbod = new HashMap<String, ArrayList<Artikel>>();
         startVoorraad = new HashMap<String, Integer>();
         prijzen = new HashMap<String, Double>();
@@ -34,36 +35,47 @@ HashSet als je een implementatie van Set moet hebben waar geen dubbele data in v
             prijzen.put(artikelnaam[i], prijs[i]);
             aanbod.put(artikelnaam[i], artikelen);
         }
+    }
 
-         /*
-        aanbod = new HashMap<String, ArrayList<Artikel>>();
-        startVoorraad = new HashMap<String, Integer>();
-        prijzen = new HashMap<String, Double>();
-
-        int max = artikelnaam.length;
+    public void refreshKorting() {
+        int max = artikelNamen.length;
         int min = 1;
-
+        String[] usableArray = Randomize(artikelNamen);
         Random random = new Random();
         int randomNumber = random.nextInt(max - min + 1) + min;
-        int AllKortingArtikelenZijnGeweest = 0;
-        for (int i = 0; i < artikelnaam.length; i++) {
-            ArrayList<Artikel> artikelen = new ArrayList<>();
-            if(AllKortingArtikelenZijnGeweest <= randomNumber) {
-                for (int j = 0; j < hoeveelheid[i]; j++) {
-                    artikelen.add(new Artikel(artikelnaam[i], prijs[i], (prijs[i] * 0.2)));
-                }
-            } else {
-                for (int j = 0; j < hoeveelheid[i]; j++) {
-                    artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
-                }
+
+        for (int i = 0; i < max; i++) {
+            ArrayList<Artikel> replacementArtikelen = new ArrayList<>();
+            for(int j = 0; j < aanbod.get(usableArray[i]).size(); j++) {
+                Artikel replacement = new Artikel(usableArray[i], aanbod.get(usableArray[i]).get(0).getPrijs(), 0.00);
+                replacementArtikelen.add(replacement);
             }
-            startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
-            prijzen.put(artikelnaam[i], prijs[i]);
-            aanbod.put(artikelnaam[i], artikelen);
-            AllKortingArtikelenZijnGeweest++;
+            aanbod.put(usableArray[i], replacementArtikelen);
         }
 
-          */
+        for (int i = 0; i < randomNumber; i++) {
+            ArrayList<Artikel> replacementArtikelen = new ArrayList<>();
+            for(int j = 0; j < aanbod.get(usableArray[i]).size(); j++) {
+                Artikel replacement = new Artikel(usableArray[i], aanbod.get(usableArray[i]).get(0).getPrijs(), (aanbod.get(usableArray[i]).get(0).getPrijs() * 0.2));
+                replacementArtikelen.add(replacement);
+            }
+            aanbod.put(usableArray[i], replacementArtikelen);
+        }
+    }
+
+    public static String[] Randomize(String[] arr) {
+        String[] randomizedArray = new String[arr.length];
+        System.arraycopy(arr, 0, randomizedArray, 0, arr.length);
+        Random rgen = new Random();
+
+        for (int i = 0; i < randomizedArray.length; i++) {
+            int randPos = rgen.nextInt(randomizedArray.length);
+            String tmp = randomizedArray[i];
+            randomizedArray[i] = randomizedArray[randPos];
+            randomizedArray[randPos] = tmp;
+        }
+
+        return randomizedArray;
     }
 
     private void vulVoorraadAan(String productnaam) {
