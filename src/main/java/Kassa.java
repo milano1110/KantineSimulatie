@@ -44,11 +44,16 @@ public class Kassa {
          */
 
         try {
+            // haal de transactie op
             transaction = manager.getTransaction();
+            //begin de transactie
             transaction.begin();
+            // reken het totaalbedrag uit met korting
             double kortingtotaalbedrag = factuur.getTotaal() - factuur.getKorting();
+            // haal de betaalwijze en het saldo op
             Betaalwijze betaalwijze = klant.getKlant().getBetaalwijze();
             double saldo = betaalwijze.getSaldo();
+            // betaal het bedrag
             betaalwijze.betaal(kortingtotaalbedrag);
             betaalwijze.setSaldo(saldo - kortingtotaalbedrag);
             totaalAantalGeld += kortingtotaalbedrag;
@@ -57,7 +62,7 @@ public class Kassa {
             manager.persist(factuur);
             transaction.commit();
         } catch (TeWeinigGeldException e) {
-            System.out.println(klant.getKlant().getVoorNaam() + " heeft te weinig saldo." + "Betaalwijze: " + klant.getKlant().getBetaalwijze().toString());
+            System.out.println("\n" + klant.getKlant().getVoorNaam() + " heeft te weinig saldo." + "\nBetaalwijze: " + klant.getKlant().getBetaalwijze().toString());
             transaction.rollback();
         }
     }

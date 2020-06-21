@@ -21,4 +21,9 @@ public class Pinpas extends Betaalwijze {
             throw new TeWeinigGeldException("Te weinig saldo");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Pinpas";
+    }
 }

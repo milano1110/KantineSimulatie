@@ -9,4 +9,9 @@ public class Contant extends Betaalwijze {
             throw new TeWeinigGeldException("Te weinig saldo");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Contant";
+    }
 }

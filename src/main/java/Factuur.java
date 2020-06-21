@@ -24,7 +24,7 @@ public class Factuur implements Serializable {
     private double totaal;
     @Column(name = "artikelen")
     private int artikelen;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = FactuurRegel.class, mappedBy = "factuur", cascade = CascadeType.ALL)
     private List<FactuurRegel> regels = new ArrayList<>();
 
     private String persoonSoort = "";
