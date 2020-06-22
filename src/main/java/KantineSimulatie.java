@@ -160,14 +160,42 @@ public class KantineSimulatie {
         return (Double) query.getSingleResult();
     }
 
-    private List getTotaalArtikel() {
-        Query query = manager.createQuery("SELECT SUM(prijs) FROM Artikel GROUP BY naam");
-        return query.getResultList();
+    /**
+     * Haalt de totale omzet per artikel op
+     * @return de totale omzet per artikel
+     */
+    private List<Double> getTotaalArtikel() {
+        return manager.createQuery("SELECT SUM(prijs) FROM Artikel GROUP BY naam",
+                Double.class).getResultList();
+
     }
 
-    private List getKortingArtikel() {
-        Query query = manager.createQuery("SELECT SUM(korting) FROM Artikel GROUP BY naam");
-        return query.getResultList();
+    /**
+     * Haalt de totale korting per artikel op
+     * @return de totale korting per artikel
+     */
+    private List<Double> getKortingArtikel() {
+        return manager.createQuery("SELECT SUM(korting) FROM Artikel GROUP BY naam",
+                Double.class).getResultList();
+
+    }
+
+    private List<Double> getHooogsteOmzetArtikel() {
+        return manager.
+                createQuery("SELECT SUM(prijs) AS prijs FROM Artikel GROUP BY naam ORDER BY prijs DESC",
+                    Double.class).setMaxResults(3).getResultList();
+    }
+
+    private List populairsteArtikelen() {
+        return manager.createQuery(
+                "SELECT artikel.naam, COUNT(artikel.naam) AS aantal FROM FactuurRegel GROUP BY artikel.naam ORDER BY aantal DESC"
+                    ).setMaxResults(3).getResultList();
+    }
+
+    private List totaleOmzetArtikelPerDag() {
+        return manager.createQuery(
+                "SELECT fr.artikel.naam, f.datum, SUM(fr.artikel.prijs - fr.artikel.korting) AS omzet FROM FactuurRegel fr join Factuur f on fr.factuur = f.id GROUP BY fr.artikel.naam, f.datum"
+        ).getResultList();
     }
 
     /**
@@ -284,6 +312,9 @@ public class KantineSimulatie {
         System.out.println("Top 3 omzet: " + getHoogsteOmzet());
         System.out.println("Omzet per artikel: " + getTotaalArtikel());
         System.out.println("Korting per artikel: " + getKortingArtikel());
+        System.out.println("");
+        System.out.println("Top 3 populairste artikelen: " + populairsteArtikelen());
+        System.out.println("Top 3 omzet per artikel: " + getHooogsteOmzetArtikel());
 
         manager.close();
         ENTITY_MANAGER_FACTORY.close();
